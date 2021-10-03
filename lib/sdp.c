@@ -208,7 +208,7 @@ int sdp(n,k,C,a,constant_offset,constraints,byblocks,fill,X,y,Z,cholxinv,
    * Stuff for keeping track of best solutions.
    */
 
-#define BASIZE 100
+#define BASIZE ( 65536  /*WOLDA-CHANGE FROM 100*/ )
     double bestarray[BASIZE+1];
 
   /*
@@ -223,7 +223,7 @@ int sdp(n,k,C,a,constant_offset,constraints,byblocks,fill,X,y,Z,cholxinv,
    */
 
   if (printlevel >= 1)
-    printf("CSDP 6.2.0\n");
+    printf("CSDP 6.2.0wolda_lib\n");
   
   /*
    * Precompute norms of a and C, so that we don't keep doing this 
@@ -796,7 +796,7 @@ int sdp(n,k,C,a,constant_offset,constraints,byblocks,fill,X,y,Z,cholxinv,
 	       if (printlevel >= 3)
 		 printf("Factorization of the system matrix failed!\n");
 
-	       if (retries < 15)
+	       if (retries < 64)  /*WOLDA-CHANGE FROM 15*/
 		 {
 		   if (retries == 0)
 		     diagfact=0.1;
@@ -1740,7 +1740,7 @@ int sdp(n,k,C,a,constant_offset,constraints,byblocks,fill,X,y,Z,cholxinv,
 		   if (printlevel >=3)
 		     printf("Stuck at edge of primal feasibility.\n");
 		   
-		   if (retries < 15)
+		   if (retries < 65536)  /*WOLDA-CHANGE FROM 15*/
 		     {
 		       if (retries == 0)
 			 diagfact=0.1;
@@ -1828,7 +1828,7 @@ int sdp(n,k,C,a,constant_offset,constraints,byblocks,fill,X,y,Z,cholxinv,
 		   if (printlevel >=3)
 		     printf("Stuck at edge of dual feasibility.\n");
 
-		   if (retries < 15)
+		   if (retries < 65536)  /*WOLDA-CHANGE FROM 15*/
 		     {
 		       if (retries == 0)
 			 diagfact=0.1;
@@ -1873,7 +1873,7 @@ int sdp(n,k,C,a,constant_offset,constraints,byblocks,fill,X,y,Z,cholxinv,
 	       if (printlevel >= 2)
 		 printf("line search failure in corrector step.\n");
 
-	       if (retries < 15)
+	       if (retries < 64)  /*WOLDA-CHANGE FROM 15*/
 		 {
 		   if (retries == 0)
 		     diagfact=0.1;
@@ -2128,10 +2128,9 @@ int sdp(n,k,C,a,constant_offset,constraints,byblocks,fill,X,y,Z,cholxinv,
 
 	   if ((iter > 60) && (bestmeas > 0.5*bestarray[((iter-20) % BASIZE)]))
 	     {
-	       if (printlevel >= 1)
-		 printf("Lack of progress.  Giving up!\n");
-	       retcode=7;
-	       goto RETURNBEST;
+	       if (printlevel >= 1) printf("Lack of progress. However, Wolda won't give up!\n");
+	       /*WOLDA-HACK retcode=7;*/
+	       /*WOLDA-HACK goto RETURNBEST;*/
 	     };
 
 	   /*

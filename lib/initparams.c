@@ -25,7 +25,7 @@ void initparams(params,pprintlevel)
   params->objtol=1.0e-8;
   params->pinftol=1.0e8;
   params->dinftol=1.0e8;
-  params->maxiter=100;
+  params->maxiter=2147483647;
   params->minstepfrac=0.90;
   params->maxstepfrac=0.97;
   params->minstepp=1.0e-8;

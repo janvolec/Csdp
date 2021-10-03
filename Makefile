@@ -21,17 +21,17 @@ export LIBS=-static -L../lib -lsdp -L/usr/local/lib/ -lopenblas -lm
 # On most systems, this should handle everything.
 #
 all:
-	cd lib; make libsdp.a
-	cd solver; make csdp
-	cd theta; make all
-	cd example; make all
+	cd lib; $(MAKE) libsdp.a
+	cd solver; $(MAKE) csdp
+	cd theta; $(MAKE) all
+	cd example; $(MAKE) all
 
 #
 # Perform a unitTest
 #
 
 unitTest:
-	cd test; make all
+	cd test; $(MAKE) all
 
 #
 # Install the executables in /usr/local/bin.
@@ -49,11 +49,11 @@ install:
 # 
 
 clean:
-	cd lib; make clean
-	cd solver; make clean
-	cd theta; make clean
-	cd test; make clean
-	cd example; make clean
+	cd lib; $(MAKE) clean
+	cd solver; $(MAKE) clean
+	cd theta; $(MAKE) clean
+	cd test; $(MAKE) clean
+	cd example; $(MAKE) clean
 
 
 
